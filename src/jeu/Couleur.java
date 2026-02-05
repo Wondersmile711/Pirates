@@ -1,5 +1,5 @@
 package jeu;
 
 public enum Couleur {
-	ROUGE,BLEU;
+	ROUGE, BLEU;
 }

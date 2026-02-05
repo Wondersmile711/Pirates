@@ -1,6 +1,6 @@
 package jeu;
 
-public class Narrateur implements IJournalDeBord{
+public class Narrateur implements IJournalDeBord {
 	private String nom;
 
 	@Override
