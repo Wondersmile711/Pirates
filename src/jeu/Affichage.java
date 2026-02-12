@@ -1,0 +1,18 @@
+package jeu;
+
+public interface Affichage {
+
+	void annoncerDebutJeu();
+
+	void annoncerDebutTour(Joueur joueur);
+
+	void annoncerGagnant(Joueur joueur);
+
+	void annoncerDeplacement(Pion pion, int nbCases);
+
+	void annoncerArriverCase(Pion pion, Case caseArrivee);
+
+	void annoncerEffetCase(Case caseActuelle);
+
+	void annoncerCoeursPerdus(Joueur joueur, int nbCoeurs);
+}

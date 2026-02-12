@@ -5,7 +5,8 @@ public class Pion {
 	private Case caseActuelle;
 
 	public Pion(Couleur couleur) {
-
+		this.couleur = couleur;
+		caseActuelle = new Case();
 	}
 
 	public Case getCaseActuelle() {
