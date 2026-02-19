@@ -2,14 +2,21 @@ package jeu;
 
 public class Pion {
 	private Couleur couleur;
-	private Case caseActuelle;
+	private int numeroCaseActuelle = 0;
 
 	public Pion(Couleur couleur) {
 		this.couleur = couleur;
-		caseActuelle = new Case();
 	}
 
-	public Case getCaseActuelle() {
-		return caseActuelle;
+	public int getNumeroCaseActuelle() {
+		return numeroCaseActuelle;
+	}
+
+	public Couleur getCouleur() {
+		return couleur;
+	}
+
+	public void setNumeroCaseActuelle(int numeroCaseActuelle) {
+		this.numeroCaseActuelle = numeroCaseActuelle;
 	}
 }

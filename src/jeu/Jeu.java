@@ -13,26 +13,40 @@ public class Jeu {
 
 	public void debutTour(Joueur joueur) {
 		journal.annoncerDebutTour(joueur);
-		int deplacement = plateau.lancerDes();
-		journal.annoncerDeplacement(joueur.getPion(), deplacement);
-		joueur.deplacerPion(deplacement);
-		journal.annoncerArriverCase(joueur.getPion(), joueur.getPion().getCaseActuelle());
+		Effet effet = joueur.getEffet();
+
+		switch (effet) {
+		case Effet.RHUM:
+			joueur.boireRhum();
+		case Effet.PACTE:
+			joueur.pactiser();
+		default:
+			int deplacement = joueur.lancerDes();
+			joueur.deplacerPion(deplacement);
+		}
+
+		Pion pion = joueur.getPion();
+		int numeroCaseActuelle = pion.getNumeroCaseActuelle();
+		// journal.annoncerDeplacement(pion, deplacement);
+		journal.annoncerArriverCase(pion, numeroCaseActuelle + 1);
+		joueur.setEffet(plateau.getCases()[numeroCaseActuelle]);
+		journal.annoncerEffetCase(joueur, numeroCaseActuelle, joueur.getEffet());
 	}
 
 	public boolean verifierFinJeu() {
 		Pion pion1 = joueur1.getPion();
 		Pion pion2 = joueur2.getPion();
 
-		Case casePion1 = pion1.getCaseActuelle();
-		Case casePion2 = pion2.getCaseActuelle();
+		int casePion1 = pion1.getNumeroCaseActuelle();
+		int casePion2 = pion2.getNumeroCaseActuelle();
 
-		if (casePion1.getNumeroCase() == 29) {
+		if (casePion1 == 29) {
 			gagnant = joueur1;
-		} else if (casePion2.getNumeroCase() == 29) {
+		} else if (casePion2 == 29) {
 			gagnant = joueur2;
 		}
 
-		return (casePion1.getNumeroCase() == 29 || casePion2.getNumeroCase() == 29);
+		return (casePion1 == 29 || casePion2 == 29);
 	}
 
 	public void commencerJeu() {
@@ -42,7 +56,10 @@ public class Jeu {
 		joueur1 = new Joueur(pion1);
 		joueur2 = new Joueur(pion2);
 
-		plateau = new Plateau(new De(6), new De(6));
+		De de1 = new De(6);
+		De de2 = new De(6);
+
+		plateau = new Plateau(de1, de2);
 
 		journal.annoncerDebutJeu();
 		while (!verifierFinJeu()) {

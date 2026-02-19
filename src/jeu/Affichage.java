@@ -10,9 +10,9 @@ public interface Affichage {
 
 	void annoncerDeplacement(Pion pion, int nbCases);
 
-	void annoncerArriverCase(Pion pion, Case caseArrivee);
+	void annoncerArriverCase(Pion pion, int numeroCaseArrivee);
 
-	void annoncerEffetCase(Case caseActuelle);
+	void annoncerEffetCase(Joueur joueur, int numeroCaseActuelle, Effet effetCase);
 
 	void annoncerCoeursPerdus(Joueur joueur, int nbCoeurs);
 }
