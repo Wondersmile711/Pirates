@@ -19,6 +19,7 @@ public class Journal implements Affichage {
 		} else {
 			nomJoueur = nomJoueur2;
 		}
+		System.out.println(" ");
 		System.out.println(nomJoueur + " démarre son tour.");
 	}
 
@@ -74,7 +75,7 @@ public class Journal implements Affichage {
 			annoncerCoeursPerdus(joueur, 2);
 			System.out.println(nomJoueur + " pourra lancer un dé supplémentaire au prochain tour.");
 		default:
-			throw new IllegalArgumentException("Unexpected value: " + effetCase);
+
 		}
 	}
 

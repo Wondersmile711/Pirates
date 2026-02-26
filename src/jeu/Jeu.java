@@ -14,23 +14,26 @@ public class Jeu {
 	public void debutTour(Joueur joueur) {
 		journal.annoncerDebutTour(joueur);
 		Effet effet = joueur.getEffet();
+		int deplacement;
 
 		switch (effet) {
 		case Effet.RHUM:
-			joueur.boireRhum();
+			deplacement = joueur.boireRhum();
 		case Effet.PACTE:
-			joueur.pactiser();
+			deplacement = joueur.pactiser();
 		default:
-			int deplacement = joueur.lancerDes();
-			joueur.deplacerPion(deplacement);
+			deplacement = joueur.lancerDes();
 		}
 
 		Pion pion = joueur.getPion();
+
+		journal.annoncerDeplacement(pion, deplacement);
+		joueur.deplacerPion(deplacement);
 		int numeroCaseActuelle = pion.getNumeroCaseActuelle();
-		// journal.annoncerDeplacement(pion, deplacement);
-		journal.annoncerArriverCase(pion, numeroCaseActuelle + 1);
+		journal.annoncerArriverCase(pion, numeroCaseActuelle);
+
 		joueur.setEffet(plateau.getCases()[numeroCaseActuelle]);
-		journal.annoncerEffetCase(joueur, numeroCaseActuelle, joueur.getEffet());
+		journal.annoncerEffetCase(joueur, numeroCaseActuelle, effet);
 	}
 
 	public boolean verifierFinJeu() {
@@ -60,12 +63,21 @@ public class Jeu {
 		De de2 = new De(6);
 
 		plateau = new Plateau(de1, de2);
+		joueur1.setDes(de1, de2);
+		joueur2.setDes(de1, de2);
+
+		plateau.placerEffets();
 
 		journal.annoncerDebutJeu();
+
 		while (!verifierFinJeu()) {
 			debutTour(joueur1);
-			debutTour(joueur2);
+
+			if (!verifierFinJeu()) {
+				debutTour(joueur2);
+			}
 		}
+
 		journal.annoncerGagnant(gagnant);
 	}
 }

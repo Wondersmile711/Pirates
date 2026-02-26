@@ -3,7 +3,7 @@ package jeu;
 public class Joueur {
 	private Pion pion;
 	private int nbCoeurs = 5;
-	private Effet effet = null;
+	private Effet effet = Effet.AUCUN;
 	private De de1;
 	private De de2;
 
@@ -17,6 +17,11 @@ public class Joueur {
 
 	public void setEffet(Effet effet) {
 		this.effet = effet;
+	}
+
+	public void setDes(De de1, De de2) {
+		this.de1 = de1;
+		this.de2 = de2;
 	}
 
 	public Pion getPion() {
@@ -36,21 +41,30 @@ public class Joueur {
 
 	public void deplacerPion(int nbCases) {
 		int numeroCaseActuelle = pion.getNumeroCaseActuelle();
-		pion.setNumeroCaseActuelle(numeroCaseActuelle + nbCases);
+
+		if (numeroCaseActuelle + nbCases > 29) {
+			int deplacement = 29 - numeroCaseActuelle;
+			int resultat = nbCases - deplacement;
+			pion.setNumeroCaseActuelle(29 - resultat);
+		} else {
+			pion.setNumeroCaseActuelle(numeroCaseActuelle + nbCases);
+		}
 	}
 
-	public void boireRhum() {
+	public int boireRhum() {
 		if (nbCoeurs < 5) {
 			nbCoeurs++;
 		}
 		int resultat = lancerDes();
-		deplacerPion(-resultat);
+		return -resultat;
 	}
 
-	public void pactiser() {
-		nbCoeurs = nbCoeurs - 2;
+	public int pactiser() {
+		if (nbCoeurs > 1) {
+			perdreCoeur(2);
+		}
 		De de3 = new De(6);
 		int resultat = lancerDes() + de3.lancerDe();
-		deplacerPion(resultat);
+		return resultat;
 	}
 }
