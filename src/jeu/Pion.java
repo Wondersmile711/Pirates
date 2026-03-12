@@ -17,6 +17,10 @@ public class Pion {
 	}
 
 	public void setNumeroCaseActuelle(int numeroCaseActuelle) {
-		this.numeroCaseActuelle = numeroCaseActuelle;
+		if (numeroCaseActuelle < 1) {
+			this.numeroCaseActuelle = 0;
+		} else {
+			this.numeroCaseActuelle = numeroCaseActuelle;
+		}
 	}
 }

@@ -33,17 +33,20 @@ public class Plateau {
 		int nbCasesPacte = 3;
 
 		do {
-			int numeroCaseRhum = random.nextInt(1, 29);
-			int numeroCasePacte = random.nextInt(1, 29);
-
-			if (nbCasesRhum != 0 && cases[numeroCaseRhum] == Effet.AUCUN) {
-				cases[numeroCaseRhum] = Effet.RHUM;
-				nbCasesRhum--;
+			if (nbCasesRhum != 0) {
+				int numeroCaseRhum = random.nextInt(1, 29);
+				if (cases[numeroCaseRhum] == Effet.AUCUN) {
+					cases[numeroCaseRhum] = Effet.RHUM;
+					nbCasesRhum--;
+				}
 			}
 
-			if (nbCasesPacte != 0 && cases[numeroCasePacte] == Effet.AUCUN) {
-				cases[numeroCasePacte] = Effet.PACTE;
-				nbCasesPacte--;
+			if (nbCasesPacte != 0) {
+				int numeroCasePacte = random.nextInt(1, 29);
+				if (cases[numeroCasePacte] == Effet.AUCUN) {
+					cases[numeroCasePacte] = Effet.PACTE;
+					nbCasesPacte--;
+				}
 			}
 		} while (nbCasesRhum != 0 || nbCasesPacte != 0);
 	}

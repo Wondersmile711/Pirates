@@ -5,6 +5,9 @@ public class Joueur {
 	private int nbCoeurs = 5;
 	private Effet effet = Effet.AUCUN;
 	private De de1;
+	private int resultatDe1;
+	private int resultatDe2;
+	private int resultatDe3;
 	private De de2;
 
 	public Joueur(Pion pion) {
@@ -28,6 +31,22 @@ public class Joueur {
 		return pion;
 	}
 
+	public int getNbCoeurs() {
+		return nbCoeurs;
+	}
+
+	public int getResultatDe1() {
+		return resultatDe1;
+	}
+
+	public int getResultatDe2() {
+		return resultatDe2;
+	}
+
+	public int getResultatDe3() {
+		return resultatDe3;
+	}
+
 	public void perdreCoeur(int coeurs) {
 		nbCoeurs -= coeurs;
 		if (nbCoeurs < 0) {
@@ -36,7 +55,9 @@ public class Joueur {
 	}
 
 	public int lancerDes() {
-		return de1.lancerDe() + de2.lancerDe();
+		resultatDe1 = de1.lancerDe();
+		resultatDe2 = de2.lancerDe();
+		return resultatDe1 + resultatDe2;
 	}
 
 	public void deplacerPion(int nbCases) {
@@ -60,11 +81,14 @@ public class Joueur {
 	}
 
 	public int pactiser() {
-		if (nbCoeurs > 1) {
-			perdreCoeur(2);
-		}
+		perdreCoeur(2);
 		De de3 = new De(6);
-		int resultat = lancerDes() + de3.lancerDe();
+		resultatDe3 = de3.lancerDe();
+		int resultat = lancerDes() + resultatDe3;
 		return resultat;
+	}
+
+	public boolean estMort() {
+		return nbCoeurs == 0;
 	}
 }
