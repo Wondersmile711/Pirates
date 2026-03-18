@@ -5,10 +5,10 @@ public class Joueur {
 	private int nbCoeurs = 5;
 	private Effet effet = Effet.AUCUN;
 	private De de1;
+	private De de2;
 	private int resultatDe1;
 	private int resultatDe2;
 	private int resultatDe3;
-	private De de2;
 
 	public Joueur(Pion pion) {
 		this.pion = pion;
@@ -47,7 +47,7 @@ public class Joueur {
 		return resultatDe3;
 	}
 
-	public void perdreCoeur(int coeurs) {
+	public void perdreCoeurs(int coeurs) {
 		nbCoeurs -= coeurs;
 		if (nbCoeurs < 0) {
 			nbCoeurs = 0;
@@ -73,15 +73,11 @@ public class Joueur {
 	}
 
 	public int boireRhum() {
-		if (nbCoeurs < 5) {
-			nbCoeurs++;
-		}
 		int resultat = lancerDes();
 		return -resultat;
 	}
 
 	public int pactiser() {
-		perdreCoeur(2);
 		De de3 = new De(6);
 		resultatDe3 = de3.lancerDe();
 		int resultat = lancerDes() + resultatDe3;
@@ -90,5 +86,20 @@ public class Joueur {
 
 	public boolean estMort() {
 		return nbCoeurs == 0;
+	}
+
+	public void gererCoeurs() {
+		switch (effet) {
+		case Effet.RHUM:
+			if (nbCoeurs < 5) {
+				nbCoeurs++;
+			}
+			break;
+		case Effet.PACTE:
+			perdreCoeurs(2);
+			break;
+		default:
+			break;
+		}
 	}
 }

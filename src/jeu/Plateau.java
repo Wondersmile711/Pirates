@@ -6,12 +6,14 @@ import java.util.Random;
 public class Plateau {
 	private De de1;
 	private De de2;
+	private int difficulte;
 	private Effet[] cases = new Effet[30];
 	private Random random;
 
-	public Plateau(De de1, De de2) {
+	public Plateau(De de1, De de2, int difficulte) {
 		this.de1 = de1;
 		this.de2 = de2;
+		this.difficulte = difficulte;
 
 		for (int i = 0; i < 30; i++) {
 			cases[i] = Effet.AUCUN;
@@ -29,8 +31,8 @@ public class Plateau {
 			e.printStackTrace();
 		}
 
-		int nbCasesRhum = 3;
-		int nbCasesPacte = 3;
+		int nbCasesRhum = difficulte * 3;
+		int nbCasesPacte = difficulte * 3;
 
 		do {
 			if (nbCasesRhum != 0) {

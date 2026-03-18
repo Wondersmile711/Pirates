@@ -1,20 +1,19 @@
 package jeu;
 
-import java.util.Scanner;
-
 public class Jeu {
 	private Joueur joueur1;
 	private Joueur joueur2;
 	private Plateau plateau;
 	private Affichage journal;
 	private Joueur gagnant;
+	private int difficulte;
 
 	public Jeu(Affichage journal) {
 		this.journal = journal;
+		difficulte = journal.choisirDifficulte();
 	}
 
 	public void debutTour(Joueur joueur) {
-		journal.annoncerDebutTour(joueur);
 		Effet effet = joueur.getEffet();
 		int deplacement;
 
@@ -30,6 +29,8 @@ public class Jeu {
 			break;
 		}
 
+		journal.annoncerDebutTour(joueur);
+
 		Pion pion = joueur.getPion();
 
 		journal.afficherResultatDes(joueur, effet);
@@ -39,7 +40,11 @@ public class Jeu {
 		journal.annoncerArriverCase(pion, numeroCaseActuelle);
 
 		joueur.setEffet(plateau.getCases()[numeroCaseActuelle]);
+		joueur.gererCoeurs();
 		journal.annoncerEffetCase(joueur, numeroCaseActuelle, joueur.getEffet());
+		if (joueur.estMort()) {
+			journal.annoncerMortJoueur(joueur);
+		}
 	}
 
 	public boolean verifierFinJeu() {
@@ -51,11 +56,13 @@ public class Jeu {
 
 		if (casePion1 == 29 || joueur2.estMort()) {
 			gagnant = joueur1;
+			return true;
 		} else if (casePion2 == 29 || joueur1.estMort()) {
 			gagnant = joueur2;
+			return true;
+		} else {
+			return false;
 		}
-
-		return (casePion1 == 29 || casePion2 == 29);
 	}
 
 	public void commencerJeu() {
@@ -68,41 +75,24 @@ public class Jeu {
 		De de1 = new De(6);
 		De de2 = new De(6);
 
-		plateau = new Plateau(de1, de2);
+		plateau = new Plateau(de1, de2, difficulte);
 		joueur1.setDes(de1, de2);
 		joueur2.setDes(de1, de2);
 
 		plateau.placerEffets();
 
-		Scanner scanner = new Scanner(System.in);
-
 		journal.annoncerDebutJeu();
-
-		scanner.nextLine();
 
 		while (!verifierFinJeu()) {
 			debutTour(joueur1);
 			if (!verifierFinJeu()) {
 				journal.passerTourSuivant();
-				scanner.nextLine();
-			}
-
-			if (!verifierFinJeu()) {
 				debutTour(joueur2);
 				if (!verifierFinJeu()) {
 					journal.passerTourSuivant();
-					scanner.nextLine();
 				}
 			}
-
 		}
-
-		if (joueur1.estMort()) {
-			journal.annoncerMortJoueur(joueur1);
-		} else if (joueur2.estMort()) {
-			journal.annoncerMortJoueur(joueur2);
-		}
-
 		journal.annoncerGagnant(gagnant);
 	}
 }

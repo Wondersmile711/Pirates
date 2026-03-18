@@ -4,6 +4,8 @@ public interface Affichage {
 
 	void annoncerDebutJeu();
 
+	int choisirDifficulte();
+
 	void annoncerDebutTour(Joueur joueur);
 
 	void annoncerGagnant(Joueur joueur);

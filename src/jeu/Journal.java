@@ -1,14 +1,34 @@
 package jeu;
 
+import java.util.Scanner;
+
 public class Journal implements Affichage {
 
 	private String nomJoueur1 = "Basile le tueur de Bulgares";
 	private String nomJoueur2 = "Nicéphore la mort pâle des Sarrasins";
+	private Scanner scanner = new Scanner(System.in);
 
 	@Override
 	public void annoncerDebutJeu() {
 		System.out.println(nomJoueur1 + " et " + nomJoueur2 + " sont prêts à parcourir les mers.");
 		System.out.println("Appuyez sur Entrée pour commencer le jeu.");
+		scanner.nextLine();
+	}
+
+	@Override
+	public int choisirDifficulte() {
+		int difficulte;
+		boolean difficulteValide = false;
+		do {
+			System.out.println("Choisissez un niveau de difficulté : 1, 2 ou 3.");
+			difficulte = scanner.nextInt();
+			if (difficulte == 1 || difficulte == 2 || difficulte == 3) {
+				difficulteValide = true;
+			} else {
+				System.out.println("Veuillez saisir un niveau de difficulté valide.");
+			}
+		} while (!difficulteValide);
+		return difficulte;
 	}
 
 	@Override
@@ -82,7 +102,9 @@ public class Journal implements Affichage {
 		case Effet.PACTE:
 			System.out.println(nomJoueur + " a vendu son âme au diable.");
 			annoncerCoeursPerdus(joueur, 2);
-			System.out.println(nomJoueur + " pourra lancer un dé supplémentaire au prochain tour.");
+			if (!joueur.estMort()) {
+				System.out.println(nomJoueur + " pourra lancer un dé supplémentaire au prochain tour.");
+			}
 			break;
 		default:
 			break;
@@ -117,6 +139,7 @@ public class Journal implements Affichage {
 	@Override
 	public void passerTourSuivant() {
 		System.out.println("Appuyez sur Entrée pour passer au tour suivant ");
+		scanner.nextLine();
 	}
 
 	public void afficherResultatDes(Joueur joueur, Effet effet) {
