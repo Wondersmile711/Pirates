@@ -47,7 +47,7 @@ public class Joueur {
 		return resultatDe3;
 	}
 
-	public void perdreCoeurs(int coeurs) {
+	private void perdreCoeurs(int coeurs) {
 		nbCoeurs -= coeurs;
 		if (nbCoeurs < 0) {
 			nbCoeurs = 0;

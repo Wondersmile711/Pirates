@@ -13,7 +13,7 @@ public class Jeu {
 		difficulte = journal.choisirDifficulte();
 	}
 
-	public void debutTour(Joueur joueur) {
+	private void debutTour(Joueur joueur) {
 		Effet effet = joueur.getEffet();
 		int deplacement;
 
@@ -47,7 +47,7 @@ public class Jeu {
 		}
 	}
 
-	public boolean verifierFinJeu() {
+	private boolean verifierFinJeu() {
 		Pion pion1 = joueur1.getPion();
 		Pion pion2 = joueur2.getPion();
 
