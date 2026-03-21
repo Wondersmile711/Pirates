@@ -22,6 +22,7 @@ public class Journal implements Affichage {
 		do {
 			System.out.println("Choisissez un niveau de difficulté : 1, 2 ou 3.");
 			difficulte = scanner.nextInt();
+			scanner.nextLine();
 			if (difficulte == 1 || difficulte == 2 || difficulte == 3) {
 				difficulteValide = true;
 			} else {

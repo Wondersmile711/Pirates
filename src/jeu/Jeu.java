@@ -40,8 +40,8 @@ public class Jeu {
 		journal.annoncerArriverCase(pion, numeroCaseActuelle);
 
 		joueur.setEffet(plateau.getCases()[numeroCaseActuelle]);
-		joueur.gererCoeurs();
 		journal.annoncerEffetCase(joueur, numeroCaseActuelle, joueur.getEffet());
+		joueur.gererCoeurs();
 		if (joueur.estMort()) {
 			journal.annoncerMortJoueur(joueur);
 		}
