@@ -83,7 +83,7 @@ public class Jeu {
 
 		journal.annoncerDebutJeu();
 
-		while (!verifierFinJeu()) {
+		do {
 			debutTour(joueur1);
 			if (!verifierFinJeu()) {
 				journal.passerTourSuivant();
@@ -92,7 +92,7 @@ public class Jeu {
 					journal.passerTourSuivant();
 				}
 			}
-		}
+		} while (!verifierFinJeu());
 		journal.annoncerGagnant(gagnant);
 	}
 }
